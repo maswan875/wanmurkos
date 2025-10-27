@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Login Eksklusif</title>
+    <style>
+        /* CSS untuk Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eef2f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: #ffffff;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .header-murkos {
+            color: #ff007b;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            margin-bottom: 15px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: 600;
+            display: none;
+            cursor: default;
+        }
+
+        .message.error {
+            background-color: #ffdddd;
+            color: #cc0000;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .help-link {
+            display: inline-block;
+            color: #25D366;
+            text-decoration: none;
+            font-size: 0.9em;
+            font-weight: bold;
+            border: 1px solid #25D366;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .help-link:hover {
+            background-color: #25D366;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        
+        <p class="header-murkos">Wánzie murkos</p>
+
+        <h2>LOGIN AKUN</h2>
+        
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <button type="submit">LOGIN</button>
+            
+            <p class="message" id="loginMessage"></p>
+            
+            <a href="https://wa.me/6281214802037?text=apa+bang+username+nya" class="help-link" id="helpLink" target="_blank" style="display: none;">
+                Lupa Username/Password? Klik di sini
+            </a>
+            
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const usernameInput = document.getElementById('username').value;
+            const passwordInput = document.getElementById('password').value;
+            const loginMessage = document.getElementById('loginMessage');
+            const helpLink = document.getElementById('helpLink');
+            
+            const USERNAME_BENAR = 'wanzie';
+            const PASSWORD_BENAR = 'murkos';
+            
+            loginMessage.textContent = '';
+            loginMessage.classList.remove('error');
+            helpLink.style.display = 'none';
+            
+            if (usernameInput === USERNAME_BENAR && passwordInput === PASSWORD_BENAR) {
+                // LOGIN BERHASIL -> Arahkan ke dashboard.html
+                loginMessage.textContent = 'Login Berhasil! Mengalihkan ke Dashboard...';
+                loginMessage.classList.remove('error');
+                loginMessage.style.backgroundColor = '#ccffcc';
+                loginMessage.style.color = '#008000';
+                loginMessage.style.display = 'block';
+
+                setTimeout(function() {
+                    // PENTING: Mengalihkan ke file kedua
+                    window.location.href = 'dashboard.html'; 
+                }, 1000);
+
+            } else {
+                // LOGIN GAGAL
+                loginMessage.textContent = 'Login Gagal! Username atau Password salah.';
+                loginMessage.classList.add('error');
+                
+                // Tampilkan link bantuan WA
+                helpLink.style.display = 'inline-block';
+            }
+        });
+    </script>
+</body>
+</html>
